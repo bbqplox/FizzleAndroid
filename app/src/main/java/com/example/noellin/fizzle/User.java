@@ -14,17 +14,19 @@ public class User {
     private String uid;
     private String partnerEmail;
     private String partnerName;
+    private String moodMsg;
 
     public User() {
     }
 
-    public User(String email, String partnerEmail, String photoUri, String uid, String userName, String partnerName) {
+    public User(String email, String partnerEmail, String photoUri, String uid, String userName, String partnerName, String moodMsg) {
         this.email = email;
         this.partnerEmail = partnerEmail;
         this.photoUri = photoUri;
         this.uid = uid;
         this.userName = userName;
         this.partnerName = partnerName;
+        this.moodMsg = moodMsg;
     }
 
     public void setPartnerName(String partnerName) {
@@ -35,6 +37,13 @@ public class User {
         return partnerName;
     }
 
+    public String getMoodMsg(){
+        return moodMsg;
+    }
+
+    public void setMoodMsg(String moodMsg){
+        this.moodMsg = moodMsg;
+    }
     public boolean hasPartner(){
         return !(partnerEmail.equals(""));
     }

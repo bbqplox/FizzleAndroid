@@ -15,6 +15,7 @@ import com.example.noellin.fizzle.mFragments.FizzleFragment;
 import com.example.noellin.fizzle.mFragments.InventoryFragment;
 import com.example.noellin.fizzle.mFragments.ProfileFragment;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -27,8 +28,9 @@ public class MainActivity extends AppCompatActivity implements AHBottomNavigatio
     private String userEmail;
     private String backendUID;
     private String userName;
-
+    private DatabaseReference mDatabase;
     private String imageUri;
+    private String moodMsg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +44,14 @@ public class MainActivity extends AppCompatActivity implements AHBottomNavigatio
         userEmail = getIntent().getStringExtra("DisplayEmail");
         backendUID = getIntent().getStringExtra("BackendUID");
         imageUri = getIntent().getStringExtra("ImageURL");
+        moodMsg = getIntent().getStringExtra("MoodMsg");
 
 
         bottomNavigation= (AHBottomNavigation) findViewById(R.id.myBottomNavigation_ID);
         bottomNavigation.setOnTabSelectedListener(this);
         this.createNavItems();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
     }
 
     @Override
@@ -127,6 +132,7 @@ public class MainActivity extends AppCompatActivity implements AHBottomNavigatio
             bundle.putString("DisplayEmail", userEmail);
             bundle.putString("ImageURL", imageUri);
             bundle.putString("DisplayName", userName);
+            bundle.putString("MoodMsg", moodMsg);
             ProfileFragment profileFragment=new ProfileFragment();
             profileFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction().replace(R.id.content_id,profileFragment).commit();

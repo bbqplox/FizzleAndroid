@@ -256,8 +256,9 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     Intent i = new Intent(LoginActivity.this, MainActivity.class);//----<<//
+                                    String defaultMsg = "This person is already too drunk to say anything!";
                                     if (!dataSnapshot.exists()) {
-                                        User nwUser = new User(firebaseEmail, partnerEmail, photoUrl.toString(), uid, name, partnerName);
+                                        User nwUser = new User(firebaseEmail, partnerEmail, photoUrl.toString(), uid, name, partnerName, defaultMsg);
                                         myRef.child(firebaseEmail).setValue(nwUser);
                                         i.putExtra("DisplayName", name);
                                         i.putExtra("DisplayEmail", firebaseEmail);
@@ -265,7 +266,8 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
                                         i.putExtra("BackendUID", uid);
                                         i.putExtra("PartnerEmail", partnerEmail);
                                         i.putExtra("PartnerName", partnerName);
-                                        Toast.makeText(getBaseContext(), "Welcome to coupletone! " + name, Toast.LENGTH_SHORT).show();
+                                        i.putExtra("MoodMsg",defaultMsg);
+                                        Toast.makeText(getBaseContext(), "Welcome to Fizzle! " + name, Toast.LENGTH_SHORT).show();
                                         Log.w(TAG, "Data did not already exist!");
                                         startActivityForResult(i, RC_SIGN_OUT);
 
@@ -278,7 +280,8 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
                                         i.putExtra("BackendUID", storedUser.getUid());
                                         i.putExtra("PartnerEmail", storedUser.getPartnerEmail());
                                         i.putExtra("PartnerName", storedUser.getPartnerName());
-                                        Toast.makeText(getBaseContext(), "Welcome back to coupletone! " + storedUser.getUserName() , Toast.LENGTH_SHORT).show();
+                                        i.putExtra("MoodMsg", storedUser.getMoodMsg());
+                                        Toast.makeText(getBaseContext(), "Welcome back to Fizzle! " + storedUser.getUserName() , Toast.LENGTH_SHORT).show();
                                         Log.w(TAG, "Data already exists! and "+ storedUser.getUserName());
                                         startActivityForResult(i, RC_SIGN_OUT);
 

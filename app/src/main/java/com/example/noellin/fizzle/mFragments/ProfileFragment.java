@@ -16,8 +16,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.noellin.fizzle.R;
+import com.example.noellin.fizzle.User;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -31,7 +35,7 @@ public class ProfileFragment extends Fragment {
     private TextView name;
     private TextView email;
     private TextView moodMessage;
-    private DatabaseReference mDatabase;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
 // ...
 
     @Nullable
@@ -40,10 +44,24 @@ public class ProfileFragment extends Fragment {
 
 
         View rootView=inflater.inflate(R.layout.profile_fragment,container,false);
+
+        String userName = getArguments().getString("DisplayName");
+        final String userEmail = getArguments().getString("DisplayEmail");
+        String imageUri = getArguments().getString("ImageURL");
+
         profile = (CircleImageView)rootView.findViewById(R.id.profile_image);
         name = (TextView)rootView.findViewById(R.id.username);
         email = (TextView)rootView.findViewById(R.id.email);
         moodMessage = (TextView)rootView.findViewById(R.id.moodmsg);
+        getActivity().setTitle("Profile");
+        Picasso.with(getActivity()).load(imageUri).into(profile);
+
+
+        name.setText(userName);
+        email.setText(userEmail + "@gmail.com");
+
+        final DatabaseReference myRef = database.getReference("users");
+
 
         moodMessage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +77,9 @@ public class ProfileFragment extends Fragment {
 
                 alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        moodMessage.setText(input.getText().toString());
+                        if(!(input.getText().toString().equals(""))){
+                            myRef.child(userEmail).child("moodMsg").setValue(input.getText().toString());
+                        }
                     }
                 });
 
@@ -75,17 +95,33 @@ public class ProfileFragment extends Fragment {
 
 
 
+        myRef.child(userEmail).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User storedUser = dataSnapshot.getValue(User.class);
+                String currMoodMsg = storedUser.getMoodMsg();
+                if(!currMoodMsg.equals("This person is already too drunk to say anything!")){
+                    moodMessage.setText(currMoodMsg);
+                }
+                else{
+                    moodMessage.setText("Enter your mood message here!");
+                }
 
-        String userName = getArguments().getString("DisplayName");
-        String userEmail = getArguments().getString("DisplayEmail");
-        String imageUri = getArguments().getString("ImageURL");
+            }
 
-        name.setText(userName);
-        email.setText(userEmail + "@gmail.com");
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getMessage());
+            }
+        });
 
-        getActivity().setTitle("Profile");
 
-        Picasso.with(getActivity()).load(imageUri).into(profile);
+
+
+
+
+
+
 
         return rootView;
     }
