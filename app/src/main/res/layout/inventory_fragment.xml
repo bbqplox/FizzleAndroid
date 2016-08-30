@@ -3,21 +3,12 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:background="#FFF"
     android:layout_height="match_parent">
-    <TextView
-        android:text="My Collection"
-        android:textSize="48sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/title"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
 
     <ImageView
         android:layout_width="65dp"
         android:layout_height="65dp"
         android:id="@+id/add_item_button"
         android:src="@drawable/plusicon"
-        android:layout_below="@+id/title"
         android:layout_alignParentStart="true" />
 
     <AutoCompleteTextView
@@ -28,7 +19,7 @@
         android:layout_alignBottom="@+id/add_item_button"
         android:layout_toEndOf="@+id/add_item_button"/>
 
-    <ImageView
+    <!-- <ImageView
         android:layout_width="65dp"
         android:layout_height="65dp"
         android:id="@+id/minus_item_button"
@@ -36,7 +27,7 @@
         android:layout_alignEnd="@+id/alcohols"
         android:layout_below="@+id/alcohols" />
 
-    <TextView
+        <TextView
         android:textSize="24sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,7 +36,7 @@
         android:layout_alignParentStart="true"
         android:layout_toStartOf="@+id/minus_item_button"
         android:text="my ingredient"
-        android:layout_below="@+id/alcohols" />
+        android:layout_below="@+id/alcohols" /> -->
 
     <ListView
         android:layout_width="wrap_content"
