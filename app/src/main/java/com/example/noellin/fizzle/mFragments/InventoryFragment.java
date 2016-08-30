@@ -110,6 +110,7 @@ public class InventoryFragment extends Fragment {
         return rootView;
     }
 
+    //load database from Firebase
     public void generateListContent(){
         for(int i=0; i<5; i++){
             ingredients.add("This is row number " + i);

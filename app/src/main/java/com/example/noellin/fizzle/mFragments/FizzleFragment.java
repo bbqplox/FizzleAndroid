@@ -12,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.widget.Toast;
+import android.widget.ImageView;
 
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -19,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.view.Window;
 import android.app.Dialog;
+import java.io.File;
 
 import com.example.noellin.fizzle.R;
 
@@ -29,7 +31,7 @@ public class FizzleFragment extends Fragment {
     private Spinner spinner;
     private Spinner spinner2;
     private Spinner spinner3;
-    private static final String[] paths = {"select item","item 1", "item 2", "item 3", "test", "test", "test", "test", "test", "test", "test", "test", "test", "test"};
+    private static final String[] paths = {"select item","item 1", "item 2", "item 3"};
     final ArrayList<String> selected = new ArrayList<String>();
 
 
@@ -37,6 +39,7 @@ public class FizzleFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView=inflater.inflate(R.layout.fizzle_fragment,container,false);
+        //final View dView=inflater.inflate(R.layout.fizzle_popup,container,false);
         getActivity().setTitle("Fizzle");
 
 
@@ -79,21 +82,48 @@ public class FizzleFragment extends Fragment {
                 selected.set(1, text2);
                 selected.set(2, text3);
 
-                Dialog settingsDialog = new Dialog(getActivity());
+
+
+                final Dialog settingsDialog = new Dialog(getActivity());
                 settingsDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-                settingsDialog.setContentView(getActivity().getLayoutInflater().inflate(R.layout.fizzle_popup
-                        , null));
+                settingsDialog.setContentView(getActivity().getLayoutInflater().inflate(R.layout.fizzle_popup, null));
+
+                ImageView fizzledPicture = (ImageView)settingsDialog.findViewById(R.id.fizzleImage);
+                //selectImage(fizzledPicture);
+
+                if(selected.get(0).equals("item 1") && selected.get(1).equals("item 2")) {
+                    fizzledPicture.setImageResource(R.drawable.camera);
+                }
+                else if(selected.get(0).equals("item 2") && selected.get(1).equals("item 3")) {
+                    fizzledPicture.setImageResource(R.drawable.heart);
+                }
+                else if(selected.get(0).equals("item 3")) {
+                    fizzledPicture.setImageResource(R.drawable.cats);
+                }
+
                 settingsDialog.show();
 
-
-
+                Button dialogButton = (Button) settingsDialog.findViewById(R.id.dButton);
+                dialogButton.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        settingsDialog.dismiss();
+                    }
+                });
 
                 Toast.makeText(getContext(), "Fizzle with " + selected.get(0) + " " + selected.get(1) + " " + selected.get(2) , Toast.LENGTH_SHORT).show();
             }
+
         });
 
         return rootView;
     }
+
+    public void selectImage(ImageView image){
+
+
+    }
+
 
     public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
 
