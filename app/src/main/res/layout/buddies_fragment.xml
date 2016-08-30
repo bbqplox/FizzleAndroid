@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:background="#FFF"
     android:layout_height="match_parent">
-    <TextView
-        android:text="Find Buddies"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <!-- activity view -->
+    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent" android:background="@drawable/background">
+
+
+        <com.example.noellin.fizzle.tindercard.SwipeFlingAdapterView android:id="@+id/frame" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@drawable/background" app:rotation_degrees="15.5" />
+
+    </FrameLayout>
 
 </LinearLayout>

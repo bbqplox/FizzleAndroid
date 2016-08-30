@@ -16,6 +16,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.noellin.fizzle.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -29,6 +31,9 @@ public class ProfileFragment extends Fragment {
     private TextView name;
     private TextView email;
     private TextView moodMessage;
+    private DatabaseReference mDatabase;
+// ...
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,8 +50,8 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
 
-                alert.setTitle("Title");
-                alert.setMessage("Message");
+                alert.setTitle("Mood Message");
+                alert.setMessage("Before you are drunk, say something!");
 
                 // Set an EditText view to get user input
                 final EditText input = new EditText(getActivity());
@@ -54,8 +59,7 @@ public class ProfileFragment extends Fragment {
 
                 alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-
-                        // Do something with value!
+                        moodMessage.setText(input.getText().toString());
                     }
                 });
 
