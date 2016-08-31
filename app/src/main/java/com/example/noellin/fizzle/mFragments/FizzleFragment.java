@@ -40,7 +40,7 @@ public class FizzleFragment extends Fragment {
     private Spinner spinner2;
     private Spinner spinner3;
 
-    private static final String[] paths = { "select item", "Rum","Vodka","Kahlua","Gin", "Tequila" };
+    private static final String[] paths = { "select item", "Rum","Vodka","Kahlua","Gin", "Tequila", "Bourbon","Triple Sec"};
     final ArrayList<String> selected = new ArrayList<String>();
 
     private HashMap<String, Boolean> fizzleResults = new HashMap<String, Boolean>();
@@ -125,7 +125,8 @@ public class FizzleFragment extends Fragment {
 
                 ImageView fizzledPicture = (ImageView)settingsDialog.findViewById(R.id.fizzleImage);
                 TextView fizzleText = (TextView)settingsDialog.findViewById(R.id.drink_description);
-                selectView(fizzledPicture, fizzleText);
+                TextView fizzleTitle = (TextView)settingsDialog.findViewById(R.id.drink_title);
+                selectView(fizzledPicture, fizzleText, fizzleTitle);
 
 
                 settingsDialog.show();
@@ -151,33 +152,43 @@ public class FizzleFragment extends Fragment {
 
     public void loadDatabase(HashMap<String, ArrayList<String>> hmap){
 
-        String a = "Test";
+        String a = "Manhattan";
         ArrayList<String> a1 = new ArrayList<String>();
-        a1.add("Vodka");
-        a1.add("Gin");
+        a1.add("Vermouth");
+        a1.add("Bourbon");
 
         hmap.put(a, a1);
 
-        String b = "Test2";
+        String b = "Long Island";
         ArrayList<String> b2 = new ArrayList<String>();
         b2.add("Vodka");
         b2.add("Gin");
+        b2.add("Rum");
+        b2.add("Tequila");
+        b2.add("Triple Sec");
 
         hmap.put(b, b2);
 
-        String c = "Test3";
+        String c = "Berita";
         ArrayList<String> c3 = new ArrayList<String>();
-        c3.add("Vodka");
-        c3.add("Gin");
+        c3.add("Beer");
+        c3.add("Tequila");
 
         hmap.put(c, c3);
 
-        String d = "Test4";
+        String d = "JD Coke";
         ArrayList<String> d4 = new ArrayList<String>();
-        d4.add("Vodka");
-        d4.add("Gin");
+        d4.add("Bourbon");
+        d4.add("Jack Daniels");
 
         hmap.put(d, d4);
+
+        String e = "Mojito";
+        ArrayList<String> e5 = new ArrayList<String>();
+        e5.add("Rum");
+        e5.add("Jack Daniels");
+
+        hmap.put(e, e5);
 
 
 
@@ -185,7 +196,7 @@ public class FizzleFragment extends Fragment {
     }
 
 
-    public void selectView(ImageView image, TextView view){
+    public void selectView(ImageView image, TextView view, TextView title){
 
         Set set = fizzleDatabase.entrySet();
 
@@ -202,28 +213,61 @@ public class FizzleFragment extends Fragment {
             }
         }
 
-        int randomNum = rand.nextInt(fizzleDatabase.size());
-
         if(results.size()>0){
-          finalResult = results.get(randomNum);
+            int randomNum = rand.nextInt(results.size());
+            finalResult = results.get(randomNum);
         }
 
-        if(finalResult.equals("Test")){
-            image.setImageResource(R.drawable.cats);
-            view.setText("Some drink that contains Gin and Vodka");
+        if(finalResult.equals("Manhattan")){
+            title.setText("Manhattan");
+            image.setImageResource(R.drawable.manhattan);
+            view.setText("Ingredients :bitters, vermouth, and bourbon. Add cherry\n" +
+                    "Put 2 dashes angostura bitters\n" +
+                    "Put 1 ounce sweet vermouth\n" +
+                    "Put 2 1/2 ounces bourbon, such as Buffalo Trace\n" +
+                    "Put 1 maraschino cherry\n");
         }
-        else if(finalResult.equals("Test2")){
-            image.setImageResource(R.drawable.heart);
-            view.setText("Some drink that contains Gin and Vodka");
+        else if(finalResult.equals("Long Island")){
+            title.setText("Long Island");
+            image.setImageResource(R.drawable.long_island);
+            view.setText("Dating back to the 70s, LIIT is one of the top 5 most popular cocktails in the world.\n" +
+                    "1 part vodka\n" +
+                    "1 part tequila\n" +
+                    "1 part rum\n" +
+                    "1 part gin\n" +
+                    "1 part triple sec\n" +
+                    "1 1/2 parts sweet and sour mix\n" +
+                    "1 splash Coca-Cola®");
         }
-        else if(finalResult.equals("Test3")){
-            image.setImageResource(R.drawable.camera);
-            view.setText("Some drink that contains Gin and Vodka");
+        else if(finalResult.equals("Berita")){
+            title.setText("Berita");
+            image.setImageResource(R.drawable.baritta);
+            view.setText("Refreshing drink from the border.\n" +
+                    "Ingredients : four bottles or cans of beer," +
+                    " 1 one cup of tequila, and " +
+                    "one can of frozen limeade concentrate");
         }
-        else if(finalResult.equals("Test4")){
-            image.setImageResource(R.drawable.fizzle);
-            view.setText("Some drink that contains Gin and Vodka");
+        else if(finalResult.equals("JD Coke")){
+            title.setText("JD Coke");
+            image.setImageResource(R.drawable.jd_coke);
+            view.setText("The first mention of the drink, in the report of Chemistry and Soils. \n" +
+                    "Jack Daniels and Coke\n" +
+                    "Recipe : \n" +
+                    "Fill a fourth of your glass \n" +
+                    "Fill the rest with coke\n"
+            );
         }
+        else if (finalResult.equals("Mojito")){
+            title.setText("Mojito");
+            image.setImageResource(R.drawable.mojito);
+            view.setText("2 Parts Light Rum\n" +
+                    "¾ Part Simple Syrup\n" +
+                    "¾ Part Lime Juice\n" +
+                    "8 Whole Mint Leaf\n" +
+                    "Soda Water\n" +
+                    "Muddle mint leaf and simple syrup in a highball glass. Fill with crushed ice. Add light rum and lime juice. Stir. Top up with soda water.");
+        }
+
 
 
         //number randomize selection
