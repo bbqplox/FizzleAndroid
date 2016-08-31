@@ -33,7 +33,7 @@ import com.example.noellin.fizzle.R;
 
 public class InventoryFragment extends Fragment {
 
-    String[] alcohols = { "Rum","Vodka","Kahlua","Gin", "Tequila" };
+    String[] alcohols = {"Rum","Vodka","Kahlua","Gin", "Tequila", "Bourbon","Triple Sec"};
     ArrayList<String> ingredients = new ArrayList<String>();
     private MyListAdapter mAdapter;
     String textString; //keep track!
@@ -113,8 +113,8 @@ public class InventoryFragment extends Fragment {
 
     //load database from Firebase
     public void generateListContent(){
-        for(int i=0; i<5; i++){
-            ingredients.add("This is row number " + i);
+        for(int i=0; i<6; i++){
+            ingredients.add(alcohols[i]);
         }
     }
 
