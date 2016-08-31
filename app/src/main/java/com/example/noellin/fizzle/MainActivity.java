@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements AHBottomNavigatio
 
 
         //set properties
-        bottomNavigation.setDefaultBackgroundColor(Color.parseColor("#6c0a0a"));
+        bottomNavigation.setDefaultBackgroundColor(Color.parseColor("#333333"));
         bottomNavigation.setAccentColor(Color.parseColor("#ffffff"));
         bottomNavigation.setInactiveColor(Color.parseColor("#999999"));
 

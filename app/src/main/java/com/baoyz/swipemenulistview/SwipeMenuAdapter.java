@@ -49,9 +49,9 @@ public class SwipeMenuAdapter implements WrapperListAdapter,
         if (convertView == null) {
             View contentView = mAdapter.getView(position, convertView, parent);
             if(position %2 ==1){
-                contentView.setBackgroundColor(Color.parseColor("#b51212"));
+                contentView.setBackgroundColor(Color.parseColor("#9F1C34"));
             }else {
-                contentView.setBackgroundColor(Color.parseColor("#A10C10"));
+                contentView.setBackgroundColor(Color.parseColor("#B8B8B8"));
             }
 
             SwipeMenu menu = new SwipeMenu(mContext);
