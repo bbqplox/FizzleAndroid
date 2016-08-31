@@ -59,7 +59,7 @@ public class BrowseFragment extends Fragment {
                 SwipeMenuItem item1 = new SwipeMenuItem(
                         getActivity());
                 item1.setBackground(new ColorDrawable(Color.DKGRAY));
-                // set width of an option (px)
+                // set width of an option (px)\
                 item1.setWidth(200);
                 item1.setTitle("View Drink");
                 item1.setTitleSize(18);
@@ -71,7 +71,7 @@ public class BrowseFragment extends Fragment {
                 // set item background
                 item2.setBackground(new ColorDrawable(Color.RED));
                 item2.setWidth(200);
-                item2.setTitle("Action 2");
+                item2.setTitle("Favorite");
                 item2.setTitleSize(18);
                 item2.setTitleColor(Color.WHITE);
                 menu.addMenuItem(item2);

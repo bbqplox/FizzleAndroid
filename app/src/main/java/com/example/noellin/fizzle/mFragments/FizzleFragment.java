@@ -139,7 +139,7 @@ public class FizzleFragment extends Fragment {
                     }
                 });
 
-                Toast.makeText(getContext(), results  + "Fizzle with " + selected.get(0) + " " + selected.get(1) + " " + selected.get(2) , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Fizzle with " + selected.get(0) + " " + selected.get(1) + " " + selected.get(2) , Toast.LENGTH_SHORT).show();
 
                 results.clear();
                 selection.clear();
