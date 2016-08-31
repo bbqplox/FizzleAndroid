@@ -33,7 +33,7 @@ import com.example.noellin.fizzle.R;
 
 public class InventoryFragment extends Fragment {
 
-    String[] alcohols = { "Rum","Vodaka","Kalua","Gin" };
+    String[] alcohols = { "Rum","Vodka","Kahlua","Gin", "Tequila" };
     ArrayList<String> ingredients = new ArrayList<String>();
     private MyListAdapter mAdapter;
     String textString; //keep track!
@@ -69,10 +69,11 @@ public class InventoryFragment extends Fragment {
                 textString = adapter.getItem(position).toString();
             }
         });
-/**
- * Unset the var whenever the user types. Validation will
- * then fail. This is how we enforce selecting from the list.
- */
+
+        /**
+        * Unset the var whenever the user types. Validation will
+        * then fail. This is how we enforce selecting from the list.
+        */
         acTextView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
