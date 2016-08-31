@@ -12,6 +12,8 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -32,9 +34,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileFragment extends Fragment {
 
     private CircleImageView profile;
+    private DatabaseReference mDatabase;
     private TextView name;
     private TextView email;
     private TextView moodMessage;
+    private Button viewMessage;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 // ...
 
@@ -49,6 +53,8 @@ public class ProfileFragment extends Fragment {
         final String userEmail = getArguments().getString("DisplayEmail");
         String imageUri = getArguments().getString("ImageURL");
 
+
+
         profile = (CircleImageView)rootView.findViewById(R.id.profile_image);
         name = (TextView)rootView.findViewById(R.id.username);
         email = (TextView)rootView.findViewById(R.id.email);
@@ -58,6 +64,7 @@ public class ProfileFragment extends Fragment {
 
 
         name.setText(userName);
+        String childPath = userEmail+"@gmail.com";
         email.setText(userEmail + "@gmail.com");
 
         final DatabaseReference myRef = database.getReference("users");
@@ -112,6 +119,72 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println("The read failed: " + databaseError.getMessage());
+            }
+        });
+
+
+        viewMessage = (Button)rootView.findViewById(R.id.button2);
+
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                getActivity(),
+                android.R.layout.select_dialog_singlechoice);
+
+        mDatabase = database.getReference("invitation");
+
+        mDatabase.child(userEmail).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot userSnapshot: dataSnapshot.getChildren()) {
+                    arrayAdapter.add(userSnapshot.getValue(String.class));
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        viewMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builderSingle = new AlertDialog.Builder(getActivity());
+                builderSingle.setIcon(R.drawable.ic_launcher);
+                builderSingle.setTitle("Select One Name:-");
+                builderSingle.setNegativeButton(
+                        "cancel",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+
+                builderSingle.setAdapter(
+                        arrayAdapter,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                String strName = arrayAdapter.getItem(which);
+                                AlertDialog.Builder builderInner = new AlertDialog.Builder(
+                                        getActivity());
+                                builderInner.setMessage(strName);
+                                builderInner.setTitle("Your Selected Item is");
+                                builderInner.setPositiveButton(
+                                        "Ok",
+                                        new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(
+                                                    DialogInterface dialog,
+                                                    int which) {
+                                                dialog.dismiss();
+                                            }
+                                        });
+                                builderInner.show();
+                            }
+                        });
+                builderSingle.show();
             }
         });
 

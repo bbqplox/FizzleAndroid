@@ -58,6 +58,7 @@
         android:textColor="#ffffff"
         android:textSize="18sp"
         android:layout_width="wrap_content"
+        android:layout_marginBottom="5dp"
         android:layout_height="wrap_content"
         android:id="@+id/textView2"
         android:layout_gravity="center_horizontal"

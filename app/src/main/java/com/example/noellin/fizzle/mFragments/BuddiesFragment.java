@@ -7,6 +7,7 @@ package com.example.noellin.fizzle.mFragments;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,6 +21,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.noellin.fizzle.Data;
@@ -27,6 +29,8 @@ import com.example.noellin.fizzle.R;
 import com.example.noellin.fizzle.User;
 import com.example.noellin.fizzle.tindercard.FlingCardListener;
 import com.example.noellin.fizzle.tindercard.SwipeFlingAdapterView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -66,6 +70,16 @@ public class BuddiesFragment extends Fragment implements FlingCardListener.Actio
 
         View rootView=inflater.inflate(R.layout.buddies_fragment,container,false);
         flingContainer = (SwipeFlingAdapterView) rootView.findViewById(R.id.frame);
+
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        final DatabaseReference myRef = database.getReference("invitation");
+        // Name, email address, and profile photo Url
+        final String name = user.getDisplayName();
+        final String email = user.getEmail();
+        final String firebaseEmail = email.split("@")[0];
+        final Uri photoUrl = user.getPhotoUrl();
+
+        Toast.makeText(getActivity(),email,Toast.LENGTH_SHORT).show();
         al = new ArrayList<>();
         //friendList = new ArrayList<>();
         mDatabase = database.getReference("users");
@@ -123,7 +137,8 @@ public class BuddiesFragment extends Fragment implements FlingCardListener.Actio
                 alert.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         if(!(input.getText().toString().equals(""))){
-                            mDatabase.child(currData.getUserEmail()).child("Invitation").setValue(input.getText().toString());
+                            myRef.child(currData.getUserEmail()).child(name).setValue(name + ": " + input.getText().toString());
+                            //mDatabase.child(currData.getUserEmail()).child("Invitation").setValue(input.getText().toString());
                         }
                     }
                 });

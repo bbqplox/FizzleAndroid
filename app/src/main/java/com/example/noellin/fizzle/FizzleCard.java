@@ -5,30 +5,39 @@ package com.example.noellin.fizzle;
  */
 public class FizzleCard {
     private String photoUri;
-    private String moodMsg;
+    private String userName;
+    private String invitation;
 
     public FizzleCard(){
         //empty constructor
     }
-    public FizzleCard(String moodMsg, String photoUri) {
-        this.moodMsg = moodMsg;
+    public FizzleCard(String photoUri, String userName, String invitation) {
+        this.photoUri = photoUri;
+        this.userName = userName;
+        this.invitation = invitation;
+    }
+
+    public String getInvitation() {
+        return invitation;
+    }
+
+    public void setInvitation(String invitation) {
+        this.invitation = invitation;
+    }
+
+    public String getPhotoUri() {
+        return photoUri;
+    }
+
+    public void setPhotoUri(String photoUri) {
         this.photoUri = photoUri;
     }
 
-    public String getPhotoUri(){
-        return this.photoUri;
+    public String getUserName() {
+        return userName;
     }
 
-    public String getMoodMsg(){
-        return this.moodMsg;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
-
-    public void setPhotoUri(String photoUri){
-        this.photoUri = photoUri;
-    }
-
-    public void setMoodMsg(String moodMsg){
-        this.moodMsg = moodMsg;
-    }
-
 }

@@ -9,25 +9,42 @@ package com.example.noellin.fizzle;
  */
 public class User {
     private String userName;
+
     private String email;
+
     private String photoUri;
+
     private String uid;
+
     private String partnerEmail;
+
     private String partnerName;
+
     private String moodMsg;
+
 
     public User() {
     }
 
     public User(String email, String partnerEmail, String photoUri, String uid, String userName, String partnerName, String moodMsg) {
         this.email = email;
+
         this.partnerEmail = partnerEmail;
+
         this.photoUri = photoUri;
+
         this.uid = uid;
+
         this.userName = userName;
+
         this.partnerName = partnerName;
+
         this.moodMsg = moodMsg;
+
+
     }
+
+
 
     public void setPartnerName(String partnerName) {
         this.partnerName = partnerName;
