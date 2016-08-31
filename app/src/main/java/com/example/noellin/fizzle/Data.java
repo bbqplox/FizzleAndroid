@@ -9,9 +9,15 @@ public class Data {
 
     private String imagePath;
 
-    public Data(String imagePath, String description) {
+    private String userName;
+
+    private String userEmail;
+
+    public Data(String imagePath, String description, String userName, String userEmail) {
         this.imagePath = imagePath;
         this.description = description;
+        this.userEmail = userEmail;
+        this.userName = userName;
     }
 
     public String getDescription() {
@@ -20,6 +26,14 @@ public class Data {
 
     public String getImagePath() {
         return imagePath;
+    }
+
+    public String getUserName(){
+        return this.userName;
+    }
+
+    public String getUserEmail(){
+        return this.userEmail;
     }
 
 }

@@ -24,7 +24,9 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Scope;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -176,6 +178,7 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
     @Override
     public void onStop() {
         super.onStop();
+        mGoogleApiClient.disconnect();
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
@@ -221,8 +224,40 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
         }
 
         if(requestCode == RC_SIGN_OUT){
+            //Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
+            /*if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
+                mGoogleApiClient.clearDefaultAccountAndReconnect().setResultCallback(new ResultCallback<Status>() {
+
+                    @Override
+                    public void onResult(Status status) {
+
+                        mGoogleApiClient.disconnect();
+                    }
+                }
+
+            );}*/
+            //Auth.GoogleSignInApi.signOut(mGoogleApiClient);
+            if (mGoogleApiClient.isConnected())
+            {
+                mGoogleApiClient.clearDefaultAccountAndReconnect();
+                mGoogleApiClient.disconnect();
+            }
+
+            FirebaseAuth.getInstance().signOut();
+
             imageView.startAnimation(animation);
+
         }
+    }
+
+    private void revokeAccess() {
+        Auth.GoogleSignInApi.revokeAccess(mGoogleApiClient).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(Status status) {
+                        // ...
+                    }
+                });
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
@@ -316,6 +351,16 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
         Toast.makeText(getApplicationContext(), "Something wrong", Toast.LENGTH_LONG).show();
+        /*
+        if (connectionResult.hasResolution()) {
+            try {
+                connectionResult.startResolutionForResult(this, RESOLVE_CONNECTION_REQUEST_CODE);
+            } catch (IntentSender.SendIntentException e) {
+                // Unable to resolve, message user appropriately
+            }
+        } else {
+            GooglePlayServicesUtil.getErrorDialog(connectionResult.getErrorCode(), this, 0).show();
+        }*/
 
     }
 }

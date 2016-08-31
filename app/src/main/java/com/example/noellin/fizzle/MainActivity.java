@@ -14,7 +14,6 @@ import com.example.noellin.fizzle.mFragments.BuddiesFragment;
 import com.example.noellin.fizzle.mFragments.FizzleFragment;
 import com.example.noellin.fizzle.mFragments.InventoryFragment;
 import com.example.noellin.fizzle.mFragments.ProfileFragment;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -70,7 +69,6 @@ public class MainActivity extends AppCompatActivity implements AHBottomNavigatio
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.log_out) {
-            FirebaseAuth.getInstance().signOut();
             finishActivity(1);
             onBackPressed();
             return true;
@@ -78,6 +76,9 @@ public class MainActivity extends AppCompatActivity implements AHBottomNavigatio
 
         return super.onOptionsItemSelected(item);
     }
+
+
+
 
     private void createNavItems()
     {
@@ -98,7 +99,9 @@ public class MainActivity extends AppCompatActivity implements AHBottomNavigatio
 
 
         //set properties
-        bottomNavigation.setDefaultBackgroundColor(Color.parseColor("#000000"));
+        bottomNavigation.setDefaultBackgroundColor(Color.parseColor("#6c0a0a"));
+        bottomNavigation.setAccentColor(Color.parseColor("#ffffff"));
+        bottomNavigation.setInactiveColor(Color.parseColor("#999999"));
 
         //set current item
         bottomNavigation.setCurrentItem(0);
