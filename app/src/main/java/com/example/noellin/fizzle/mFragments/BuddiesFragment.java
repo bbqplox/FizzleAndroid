@@ -137,7 +137,7 @@ public class BuddiesFragment extends Fragment implements FlingCardListener.Actio
                 alert.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         if(!(input.getText().toString().equals(""))){
-                            myRef.child(currData.getUserEmail()).child(name).setValue(name + ": " + input.getText().toString());
+                            myRef.child(currData.getUserEmail()).child(name).setValue(name + "" + input.getText().toString());
                             //mDatabase.child(currData.getUserEmail()).child("Invitation").setValue(input.getText().toString());
                         }
                     }

@@ -5,6 +5,7 @@ package com.example.noellin.fizzle.mFragments;
  */
 
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -109,6 +110,7 @@ public class ProfileFragment extends Fragment {
                 String currMoodMsg = storedUser.getMoodMsg();
                 if(!currMoodMsg.equals("This person is already too drunk to say anything!")){
                     moodMessage.setText(currMoodMsg);
+                    moodMessage.setTextColor(Color.parseColor("#ffffff"));
                 }
                 else{
                     moodMessage.setText("Enter your mood message here!");
@@ -135,6 +137,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot userSnapshot: dataSnapshot.getChildren()) {
+                    arrayAdapter.clear();
                     arrayAdapter.add(userSnapshot.getValue(String.class));
 
                 }
