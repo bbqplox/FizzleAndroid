@@ -21,7 +21,6 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.noellin.fizzle.Data;
@@ -79,7 +78,7 @@ public class BuddiesFragment extends Fragment implements FlingCardListener.Actio
         final String firebaseEmail = email.split("@")[0];
         final Uri photoUrl = user.getPhotoUrl();
 
-        Toast.makeText(getActivity(),email,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(),email,Toast.LENGTH_SHORT).show();
         al = new ArrayList<>();
         //friendList = new ArrayList<>();
         mDatabase = database.getReference("users");
@@ -137,7 +136,7 @@ public class BuddiesFragment extends Fragment implements FlingCardListener.Actio
                 alert.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         if(!(input.getText().toString().equals(""))){
-                            myRef.child(currData.getUserEmail()).child(name).setValue(name + "" + input.getText().toString());
+                            myRef.child(currData.getUserEmail()).child(name).setValue(name + ": " + input.getText().toString());
                             //mDatabase.child(currData.getUserEmail()).child("Invitation").setValue(input.getText().toString());
                         }
                     }

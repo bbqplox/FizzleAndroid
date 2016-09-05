@@ -71,7 +71,7 @@ public class BrowseFragment extends Fragment {
                 // set item background
                 item2.setBackground(new ColorDrawable(Color.RED));
                 item2.setWidth(200);
-                item2.setTitle("Favorite");
+                item2.setTitle("Share");
                 item2.setTitleSize(18);
                 item2.setTitleColor(Color.WHITE);
                 menu.addMenuItem(item2);

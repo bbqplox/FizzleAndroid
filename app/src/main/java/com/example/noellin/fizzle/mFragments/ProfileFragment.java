@@ -154,7 +154,7 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
                 AlertDialog.Builder builderSingle = new AlertDialog.Builder(getActivity());
                 builderSingle.setIcon(R.drawable.ic_launcher);
-                builderSingle.setTitle("Select One Name:-");
+                builderSingle.setTitle("Select One Invitation");
                 builderSingle.setNegativeButton(
                         "cancel",
                         new DialogInterface.OnClickListener() {
@@ -173,7 +173,7 @@ public class ProfileFragment extends Fragment {
                                 AlertDialog.Builder builderInner = new AlertDialog.Builder(
                                         getActivity());
                                 builderInner.setMessage(strName);
-                                builderInner.setTitle("Your Selected Item is");
+                                builderInner.setTitle("Party tonight is: ");
                                 builderInner.setPositiveButton(
                                         "Ok",
                                         new DialogInterface.OnClickListener() {
