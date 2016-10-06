@@ -2,4 +2,4 @@
 
 Fizzle, Make Alcohol Great Again.
 
-Implemented on Android Studio for COGS 187A
+Implemented on Android Studio.
